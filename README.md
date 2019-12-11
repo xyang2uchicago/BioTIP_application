@@ -176,6 +176,7 @@ plot_MCI_Simulation(maxMCI,simuMCI)
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
 <a name="Finding Tipping Point"></a>
+
  __S5: Finding Tipping Point__
 
 The next step is to calculate an Index of Critical transition (Ic score) of the dataset. First, use the getIc function to calculate the Ic score based on the biomodule previously identified. We use the plotIc function to draw a line plot of the Ic score. 

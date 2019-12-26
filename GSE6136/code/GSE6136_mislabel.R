@@ -79,7 +79,7 @@ plot_Ic_Simulation(Ic,simIc,ylim = c(0,2.5),order = c('resting','activated','lym
 
 dev.copy2pdf(file = 'MCI_Ic_GSE6136_mislabel_GSM142409.pdf')
 
-############################### negative control failed: still identifiying 'activated' as tipping point
+############################### related1per: still identifiying 'activated' as tipping point
 cli[which(cli$geo_accession == 'GSM142409'),'cell-type:ch1'] = 'lymphoma_marginal'
 cli[which(cli$geo_accession == 'GSM142402'),'cell-type:ch1'] = 'activated'
 
@@ -122,7 +122,7 @@ plot_Ic_Simulation(Ic,simIc,ylim = c(0,2.5),order = c('resting','activated','lym
 
 dev.copy2pdf(file = 'MCI_Ic_GSE6136_mislabel_GSM142402.pdf')
 
-############################### negative control succeed: identifiying 'lymphoma_agressive' as tipping point
+############################### misclassified1per: identifiying 'lymphoma_agressive' as tipping point
 cli[which(cli$geo_accession == 'GSM142402'),'cell-type:ch1'] = 'lymphoma_marginal'
 cli[which(cli$geo_accession == 'GSM142418'),'cell-type:ch1'] = 'activated'
 

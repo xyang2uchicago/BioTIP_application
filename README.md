@@ -16,8 +16,8 @@ Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentificati
      width="600" />
 
 
-### Standard Identification in 5 steps ###
-==========================================
+Standard Identification in 5 steps 
+------
 
 <a name="Data Preprocessing"></a>
  __S1: Data Preprocessing__

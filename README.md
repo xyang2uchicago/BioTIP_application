@@ -11,7 +11,7 @@ Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentificati
 <a name='WORKFLOW'></a>
 ## BioTIP workflow  
 
-   <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig_1.pdf"
+   <img src="https://github.com/xyang2uchicago/BioTIP_application/edit/master/Fig_1.pdf"
      alt="BioTIP workflow"
      width="600" />
 

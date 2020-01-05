@@ -14,7 +14,7 @@ Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentificati
    <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig_1.png"
      alt="BioTIP workflow"
      width="600" type="application/pdf"/>
-
+## 
 
 Standard Identification in 5 steps 
 ------

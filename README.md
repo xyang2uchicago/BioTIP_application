@@ -11,13 +11,13 @@ Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentificati
 <a name='WORKFLOW'></a>
 ## BioTIP workflow  
 
-   <img src="https://raw.githubusercontent.com/xyang2uchicago/BioTIP/master/vignettes/Fig1.jpg"
+   <img src="https://raw.githubusercontent.com/xyang2uchicago/BioTIP_application/master/Fig1.jpg"
      alt="BioTIP workflow"
      width="600" />
 
-######################################################################
+
 ### Standard Identification in 5 steps ###
-######################################################################
+=========================================================
 
 <a name="Data Preprocessing"></a>
  __S1: Data Preprocessing__

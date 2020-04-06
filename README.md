@@ -5,22 +5,22 @@ Here we adopt historical tipping-point approaches [(Chen 2012](https://www.ncbi.
 
 We construct a comprehensive scoring scheme and successfully apply the scheme to lymphoma, lung-injury, heart-development, and neuroblastoma systems. Thus, we identify a spatial gene-expression feature for systematic dynamics at phenotypic tipping points, which can be exploited to infer functional genetic variations and transcription factors. 
 
-Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentification **P**ackage) can analyze not only time-course but also cross-sectional transcriptomes and is compatible with noncoding RNA profiles. Additional knowledge discovery that underlines the critical transition of a system can be tested using our approach.
+Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentification **P**ackage) can analyze not only time-course but also cross-sectional transcriptomes and is compatible with noncoding RNA profiles. Additional knowledge discovery that underlines the critical transition of a system can be tested using our approach. See more demon code and outputs at https://github.com/xyang2uchicago/BioTIP_application
 ## 
 
 <a name='WORKFLOW'></a>
 ## BioTIP workflow  
 
-   <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig_1.png"
+   <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/FigS1_BioTIP_pipeline_detailed_v6.png"
      alt="BioTIP workflow"
      width="600" type="application/pdf"/>
 ## 
 
-Standard Identification in 5 steps 
+Data preprocession before running BioTIP 
 ------
 
 <a name="Data Preprocessing"></a>
- __S1: Data Preprocessing__
+ __Data Preprocessing__
 
 An existing dataset, GSE6136, is used to demonstrate how our functions are applied. Samples were collected from transgenic mouse lymphomas and divided into five groups based on clinical presentation, pathology and flow cytometry ([Lenburg 2007](https://www.ncbi.nlm.nih.gov/pubmed/?term=17166848)), thus belonging to cross-sectional profiles. Noticing these five group represent a control stage similar to non-transgenic B cells and four major periods of B-cell lymphomagenesis, Dr. Chen and coauthors used the DNB method to identify the pre-disease state exists around the normal activated period (P2), i.e., the system transitions to the disease state around the transitional lymphoma period (Figure S12 in publication ([Chen 2012)](https://www.ncbi.nlm.nih.gov/pubmed/22461973)). 
 Start by installing the package 'BioTIP' and other dependent packages such as stringr, psych, and igraph if necessary. Below are some examples.
@@ -31,7 +31,9 @@ library(BioTIP)
 # first row of the GEO-downloaded matrix should be column-name.
 data(GSE6136_matrix)
 GSE6136 = GSE6136_matrix[,-1]  
+rownames(GSE6136) <- GSE6136_matrix[,1]
 dim(GSE6136)               #[1] 22690 rows and 26 columns
+rm(GSE6136_matrix)
 ```
 
   The summary of GEO-downloaded clinical phenpotpic matrix GSE6136_cli is shown below. 
@@ -61,36 +63,84 @@ head(cli[,1:3])
   groups (clusters).
 
 ```{r}
-dat <- GSE6136
-df <- log2(dat+1)
-head(df)
+df <- log2(GSE6136+1)
+ df[1:3,1:5]
+#           GSM142398 GSM142399 GSM142400 GSM142401 GSM142402
+#1415670_at  10.21917  10.29048  9.987548  10.07682  9.827343
+#1415671_at  10.90358  11.15993 10.776186  10.93000 11.468268
+#1415672_at  11.11530  10.89209 11.091303  11.04029 11.109504
+
+```
+
+The sample assembles are preiously published.
+```
+tmp <- names(table(cli$group))
+cli$group = factor(cli$group, levels=c('resting','activated','lymphoma_marginal','lymphoma_transitional','lymphoma_aggressive'))
+samplesL <- split(cli[,1],f = cli$group)
+names(samplesL)
+#[1] "resting"               "activated"             "lymphoma_marginal"    
+#[4] "lymphoma_transitional" "lymphoma_aggressive"  
 ```
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
-<a name="Pre-selection Transcript"></a>
 
+
+Standard Identification in 5 steps 
+------
+<a name="Finding Tipping Point"></a>
+__S1: Finding Tipping Point__
+
+The first step is to calculate an Index of Critical transition (Ic score) of the dataset. One can use the getIc function to calculate the Ic score based on randomly selected genes (20-1000). The function getIc has a key parameter fun which gives the options to call the existing Ic score or the proposed new Ic* score.
+  
+```{r}
+RandomG <- sample(rownames(df), 100)
+IC.new <- getIc(df, samplesL, RandomG, fun='BioTIP')
+plotIc(IC.new, las = 2)
+IC.old <- getIc(df, samplesL, RandomG, fun='cor')
+plotIc(IC.old, las = 2)
+```
+
+To estimate the distribution of random Ic scores, one can call the function simulation_Ic. 
+
+```{r,warning=FALSE}
+simuIC <- simulation_Ic(length(RandomG),samplesL,df, fun='BioTIP')
+par(mar = c(10,5,0,2))
+plot_Ic_Simulation(IC,simuIC,las = 2)
+```
+  
+  
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
+<a name="Acknowledgements"></a>
+
+<a name="Pre-selection Transcript"></a>
  __S2: Pre-selection Transcript__
 
-  Once normalized, we can now classify different stages. The tipping point
-  is within the "activated" state in this case. Here we see the number of
-  samples that are classified into states "activated", "lymphoma_aggressive",
-  "lymphoma_marginal", "lymphoma_transitional" and "resting". For instance,
-  states "activated" and "resting" contain three and four samples, respectively.
-  All the contents of the data set "test" can be viewed using `View(test)`. Each
-  clinical state's content can be viewed using `head(test["stage_name"])`. For
-  instance, head(test["activated"]) shows contents of the activated state.
+  Once pre-processed, we can analyze the clinical stage ensembles. Here, we
+  demonstrate a pre-selection of 226 (1%) genes for each state.
 
 ```{r, warning=FALSE}
-tmp <- names(table(cli$group))
-samplesL <- split(cli[,1],f = cli$group)
-#head(samplesL)
 test <- sd_selection(df, samplesL,0.01)
-head(test[["activated"]])
+class(test)  #[1] "list"
+lapply(test, dim)
+#$resting
+#[1] 226   5
+#
+#$activated
+#[1] 226   3
+#
+#$lymphoma_marginal
+#[1] 226   6
+#
+#$lymphoma_transitional
+#[1] 226   5
+#
+#$lymphoma_aggressive
+#[1] 226   7
 ```
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
-<a name="Network Partition"></a>
 
+<a name="Network Partition"></a>
  __S3: Network Partition__
 
   A graphical represetation of genes of interest can be achieved using the
@@ -99,21 +149,21 @@ head(test[["activated"]])
   using the `getCluster_methods` function classify nodes.
 
 ```{r,echo=TRUE, warning=FALSE}
-library(BioTIP)
-#library(igraph)
-library(cluster)
+library(igraph)
+library(psych)
 igraphL <- getNetwork(test, fdr = 1)
 
 cluster <- getCluster_methods(igraphL)
 ```
 ```{r,echo=TRUE, warning=FALSE}
 names(cluster)
-head(cluster[[1]])
+class(cluster)  #[1] "list"
+class(cluster[[1]])  #[1] "communities"
 ```
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
-<a name="Identifying Dynamic Network Biomodule"></a>
 
+<a name="Identifying Dynamic Network Biomodule"></a>
  __S4: Identifying Dynamic Network Biomodule__
 
 Here, ‘module’ refers to a cluster of network nodes (e.g. transcripts) highly linked (e.g. by correlation). “Biomodule” refers to the module resenting a highest score called “Module-Criticality Index (MCI)” per state.
@@ -175,9 +225,9 @@ plot_MCI_Simulation(maxMCI,simuMCI)
 ```
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
-<a name="Finding Tipping Point"></a>
 
- __S5: Finding Tipping Point__
+<a name="Evaluate Tipping Point"></a>
+ __S5: Evaluate Tipping Point__
 
 The next step is to calculate an Index of Critical transition (Ic score) of the dataset. First, use the getIc function to calculate the Ic score based on the biomodule previously identified. We use the plotIc function to draw a line plot of the Ic score. 
   
@@ -196,20 +246,22 @@ identification (red) against its corresponding size-controlled random scores
 ```{r,warning=FALSE}
 simuIC <- simulation_Ic(length(CTS),samplesL,df)
 par(mar = c(10,5,0,2))
-plot_Ic_Simulation(IC,simuIC,las = 2)
+plot_Ic_Simulation(IC, simuIC,las = 2)
 ```
   
-Another function plot_simulation_sample calculates random Ic-scores by shuffling
+Importantly, the function plot_simulation_sample calculates random Ic-scores by shuffling
 samples and visualizes the results. Showing in the plot is observed Ic-score
 (red vertical line) comparing to the density of random scores (grey), at the
 tipping point identified.
 
 ```{r}
-simulated_Ic = plot_simulation_sample(df,length(samplesL[['lymphoma_aggressive']]),IC[['lymphoma_aggressive']],CTS)
+RandomIc = simulation_Ic_sample(df, sampleNo=length(samplesL[['lymphoma_aggressive']]), 
+                                 Ic=IC[['lymphoma_aggressive']], genes=CTS, B=100)
+plot_Ic_Simulation(IC, RandomIc, las = 2)                                 
 ```
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/edit/master/README.md#WORKFLOW) 
-<a name="Acknowledgements"></a>
+
 
  
 

@@ -5,7 +5,7 @@ Here we adopt historical tipping-point approaches [(Chen 2012](https://www.ncbi.
 
 We construct a comprehensive scoring scheme and successfully apply the scheme to lymphoma, lung-injury, heart-development, and neuroblastoma systems. Thus, we identify a spatial gene-expression feature for systematic dynamics at phenotypic tipping points, which can be exploited to infer functional genetic variations and transcription factors. 
 
-Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentification **P**ackage) can analyze not only time-course but also cross-sectional transcriptomes and is compatible with noncoding RNA profiles. Additional knowledge discovery that underlines the critical transition of a system can be tested using our approach. See more demon codes and outputs at https://github.com/xyang2uchicago/BioTIP_application/Rcode/
+Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentification **P**ackage) can analyze not only time-course but also cross-sectional transcriptomes and is compatible with noncoding RNA profiles. Additional knowledge discovery that underlines the critical transition of a system can be tested using our approach. See more demon codes and outputs at https://github.com/xyang2uchicago/BioTIP_application/tree/master/Rcode
 ## 
 
 <a name='WORKFLOW'></a>

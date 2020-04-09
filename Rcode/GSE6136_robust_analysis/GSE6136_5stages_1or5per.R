@@ -6,9 +6,6 @@
 # The following initializes usage of Bioc devel
 BiocManager::install(version='devel')
 BiocManager::install("BioTIP")
-#source("/Users/jennifersun/Desktop/BioTIP/R/BioTIP-package.R")
-#source("/Users/jennifersun/Desktop/BioTIP/R/BioTIP_update_3.3_02282020.R")
-#source("/Users/jennifersun/Desktop/BioTIP/R/data.R")
 library(BioTIP)
 packageVersion("BioTIP")  #[1] 'v. 1.1.1'
 

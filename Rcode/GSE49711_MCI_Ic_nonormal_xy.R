@@ -7,7 +7,7 @@
 BiocManager::install(version='devel')
 BiocManager::install("BioTIP")
 library(BioTIP)
-packageVersion("BioTIP")  #[1] ‘1.1.0’
+packageVersion("BioTIP")  #[1] 1.1.1
 
 library(stringr)
 library(psych)

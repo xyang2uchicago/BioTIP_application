@@ -12,7 +12,7 @@ setwd("F:/projects/BioTIP/doc/2020_/Applications/")
 BiocManager::install(version='devel')
 BiocManager::install("BioTIP")
 library(BioTIP)
-packageVersion("BioTIP")  #[1] ‘1.1.0’
+packageVersion("BioTIP")  #[1] 1.1.1
 
 
 if (!requireNamespace("BiocManager", quietly = TRUE)) {

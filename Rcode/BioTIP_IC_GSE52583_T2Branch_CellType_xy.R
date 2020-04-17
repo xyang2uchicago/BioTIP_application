@@ -34,15 +34,6 @@ all(rownames(cli) == colnames(dat))  # TRUE
  
 ###### 1) focus on T2 branch #############
  all(colnames(dat) == rownames(cli))  # TRUE
- ## Method 1  =============
- #x <- which(cli$age=="18.5" & cli$putative_cell_type !="AT2" )
- #length(x)  # 68
- 
- ## Method 2  =============
- #y <-  which(cli$age=="18.5" & cli$Cluster =="3" )
- #length(y)   # 52
- 
- ## Method 3  =============
  y <-  which(cli$age=="18.5" & cli$CellType !="AT2" )
  length(y)   # 65
 

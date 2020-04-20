@@ -80,8 +80,7 @@ head(test[["16.5"]])
 igraphL <- getNetwork(test, fdr = cut.fdr)
 # 14.5:517 nodes
 # 16.5:517 nodes
-# 18.5:521 nodes
-# Adult:516 nodes
+# 18.5:516 nodes
 
 
 cluster <- getCluster_methods(igraphL)

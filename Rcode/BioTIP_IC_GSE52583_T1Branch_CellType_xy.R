@@ -85,7 +85,7 @@ igraphL <- getNetwork(test, fdr = cut.fdr)
 
 cluster <- getCluster_methods(igraphL)
 names(cluster)
-# [1] "14.5"  "16.5"  "18.5_AT1"  "Adult"
+# [1] "14.5"  "16.5"  "18.5_AT1" 
 
 
 # 2.1) Identifying CTS, old DNB method #########

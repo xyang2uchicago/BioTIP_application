@@ -6,10 +6,10 @@
 setwd("F:/projects/BioTIP/doc/2020_/Applications/")
 
 # The following initializes usage of Bioc devel
-BiocManager::install(version='devel')
-BiocManager::install("BioTIP")
+# BiocManager::install(version='devel')
+# BiocManager::install("BioTIP")
 library(BioTIP)
-packageVersion("BioTIP")  #[1] ‘1.1.0’
+packageVersion("BioTIP")  #[1] 1.1.1
 
 #source("../../../source/BioTIP_update_3.2_02242020.R")
 

@@ -84,12 +84,12 @@ all(rownames(cli) == colnames(dat))  # TRUE
  
  if(any(is.na(dat))) use="pairwise.complete.obs" else use="everything"
  
+ set.seed(2020)
  for(k in c("cor","BioTIP"))
  {
    method <- ifelse(k=='cor', "IC","BioTIP")
 
    ## how about permutate genes?
-   set.seed(2020)
    IC_simu <- array(dim=c(length(samplesL), B))
    rownames(IC_simu) <- names(samplesL)
    IC_simu <- simulation_Ic(n, samplesL, counts=dat, B=B, fun=k, output=output, use=use)
@@ -98,17 +98,20 @@ all(rownames(cli) == colnames(dat))  # TRUE
    
    
    ########  how about and then permutate genes, but also randomly select n.smallest.sample cells per age ?
-   set.seed(2020)
+  # set.seed(2020)
    IC_simu <- array(dim=c(length(samplesL), B))
    rownames(IC_simu) <- names(samplesL)
    samples <- lapply(samplesL, function(x) sample(x, n.smallest.sample))
    IC_simu <- simulation_Ic(n, samples, dat, B=B, fun=k, output=output, use=use)
    save(IC_simu, n, file=paste0(output,"_Simu",method,"_fr_",nrow(dat),"G_",n.smallest.sample,"cellPerAge.RData"), compress=T)
-   
+ } 
    
    
    # ######## sample-label shuffling also gene permutation #######################
-   # set.seed(2020)
+ # for(k in c("cor","BioTIP"))
+ # {
+ #    method <- ifelse(k=='cor', "IC","BioTIP")
+ #  
    # IC_simu <- array(dim=c(length(samplesL), B))
    # rownames(IC_simu) <- names(samplesL)
    # simu <- matrix(nrow=length(samplesL), ncol=B)
@@ -125,7 +128,7 @@ all(rownames(cli) == colnames(dat))  # TRUE
    
    
    # ###########  sample-label shuffling also gene permutation, but n.smallest.sample cells per age  random select samples beyond staage  #######
-   # set.seed(2020)
+   # 
    # IC_simu <- array(dim=c(length(samplesL), B))
    # rownames(IC_simu) <- names(samplesL)
    # simu <- matrix(nrow=length(samplesL), ncol=B)# 4 500
@@ -141,7 +144,7 @@ all(rownames(cli) == colnames(dat))  # TRUE
    # dimnames(IC_simu)[[3]] <- n
    # save(IC_simu, file=paste0(output,"_Simu",method,"_shulfLabelling_fr_",nrow(dat),"G_",n.smallest.sample,"cellPerAge.RData"), compress=T)
    
- }
+# }
 
  
  
@@ -155,19 +158,21 @@ library(MASS)
 library(mixtools)
 # https://cran.r-project.org/web/packages/mixtools/vignettes/mixtools.pdf
 
-   load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/Ic_SimuIc_fr_10359G.RData")) 
+#   datafold <- "F:/projects/BioTIP/result/GSE52583/log2_all/"Ic_SimuIc_fr_10359G.RData"
+   datafold <- "F:/projects/BioTIP/doc/2020_/Applications/"
+   load(file=paste0(datafold,"Ic_SimuIc_fr_10359G.RData")) 
    dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
    Ic_random = IC_simu#[,,3]
    
-   load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/Ic_SimuBioTIP_fr_10359G.RData")) 
+   load(file=paste0(datafold,"Ic_SimuBioTIP_fr_10359G.RData")) 
    dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
    Ic.new_random = IC_simu#[,,3]
    
-   load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/Ic_SimuIc_fr_10359G_27cellPerAge.RData"))  # _shulfLabelling
+   load(file=paste0(datafold,"Ic_SimuIc_fr_10359G_27cellPerAge.RData"))  # _shulfLabelling
    dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
    Ic_random.27cell = IC_simu#[,,3]
    
-   load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/Ic_SimuBioTIP_fr_10359G_27cellPerAge.RData")) 
+   load(file=paste0(datafold,"Ic_SimuBioTIP_fr_10359G_27cellPerAge.RData")) 
    dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
    Ic.new_random.27cell = IC_simu#[,,3]
    
@@ -189,31 +194,31 @@ dev.copy2pdf(file='ROutputFigs/GSE52583/Icvs_Ic.new_1krandom.gene.pdf')
 
 ###########################################################
 ## Compare PCCs and PCCg into details 
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCg_SimuIc_fr_10359G.RData")) 
+load(file=paste0(datafold,"PCCg_SimuIc_fr_10359G.RData")) 
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCg_random = IC_simu#[,,3]
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCg_SimuBioTIP_fr_10359G.RData")) 
+load(file=paste0(datafold,"PCCg_SimuBioTIP_fr_10359G.RData")) 
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCg.new_random = IC_simu#[,,3]
 
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCs_SimuIc_fr_10359G.RData")) 
+load(file=paste0(datafold,"PCCs_SimuIc_fr_10359G.RData")) 
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCs_random = IC_simu#[,,3]
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCs_SimuBioTIP_fr_10359G.RData")) 
+load(file=paste0(datafold,"PCCs_SimuBioTIP_fr_10359G.RData")) 
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCs.new_random = IC_simu#[,,3]
 
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCg_SimuIc_fr_10359G_27cellPerAge.RData"))  # _shulfLabelling
+load(file=paste0(datafold,"PCCg_SimuIc_fr_10359G_27cellPerAge.RData"))  # _shulfLabelling
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCg_random.27cell = IC_simu#[,,3]
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCg_SimuBioTIP_fr_10359G_27cellPerAge.RData")) 
+load(file=paste0(datafold,"PCCg_SimuBioTIP_fr_10359G_27cellPerAge.RData")) 
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCg.new_random.27cell = IC_simu#[,,3]
 
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCs_SimuIc_fr_10359G_27cellPerAge.RData"))  # _shulfLabelling
+load(file=paste0(datafold,"PCCs_SimuIc_fr_10359G_27cellPerAge.RData"))  # _shulfLabelling
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCs_random.27cell = IC_simu#[,,3]
-load(file=paste0("F:/projects/BioTIP/result/GSE52583/log2_all/PCCs_SimuBioTIP_fr_10359G_27cellPerAge.RData")) 
+load(file=paste0(datafold,"PCCs_SimuBioTIP_fr_10359G_27cellPerAge.RData")) 
 dim(IC_simu)   #   4 1000    3 the results of random 20, 200 and 1000 genes
 PCCs.new_random.27cell = IC_simu#[,,3]
 

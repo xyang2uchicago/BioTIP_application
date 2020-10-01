@@ -9,7 +9,7 @@
 #source("/Users/jennifersun/Desktop/BioTIP/R/BioTIP-package.R")
 #source("/Users/jennifersun/Desktop/BioTIP/R/BioTIP_update_3.3_02282020.R")
 #source("/Users/jennifersun/Desktop/BioTIP/R/data.R")
-source("F:/projects/BioTIP/R_function/BioTIP-master/R/BioTIP_update_4_09282020.R")
+#source("F:/projects/BioTIP/R_function/BioTIP-master/R/BioTIP_update_4_09282020.R")
 
 library(BioTIP)
 packageVersion("BioTIP")  #[1] 'v. 1.3.0'

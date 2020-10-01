@@ -13,8 +13,8 @@ setwd("F:/projects/BioTIP/doc/2020_/Applications/")
 # devtools::install_github("xyang2uchicago/BioTIP")
 
 library(BioTIP)
-packageVersion("BioTIP")  #[1] ‘1.3.0’
-source("F:/projects/BioTIP/R_function/BioTIP-master/R/BioTIP_update_4_09282020.R")
+packageVersion("BioTIP")  #[1] â€˜1.3.0â€™
+#source("F:/projects/BioTIP/R_function/BioTIP-master/R/BioTIP_update_4_09282020.R")
 
 
 if (!requireNamespace("BiocManager", quietly = TRUE)) {

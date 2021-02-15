@@ -78,7 +78,7 @@ save(CTS, file = 'CTS.GSE6136_mislabel_GSM142409.rData')
 #simMCI = simulationMCI(105,samplesL, df)
 #plot_MCI_Simulation(maxMCI,simMCI,ylim =c(0,4),las = 2,order = c('resting','activated','lymphoma_marginal','lymphoma_transitional','lymphoma_aggressive'))
 
-Ic = getIc(df,samplesL,CTS,fun='BioTIP')
+Ic = getIc(df,samplesL,CTS,fun='BioTIP', PCC_sample.target='average')
 simIc = simulation_Ic(length(CTS),samplesL,df,fun='BioTIP')
 par(resetPar())
 plot_Ic_Simulation(Ic,simIc,ylim = c(0,1),
@@ -132,7 +132,7 @@ save(CTS, file = 'CTS.GSE6136_mislabel_GSM142418.rData')
 #simMCI = simulationMCI(105,samplesL, df)
 #plot_MCI_Simulation(maxMCI,simMCI,ylim =c(0,5),las = 2,order = c('resting','activated','lymphoma_marginal','lymphoma_transitional','lymphoma_aggressive'))
 
-Ic = getIc(df,samplesL,CTS,fun='BioTIP')
+Ic = getIc(df,samplesL,CTS,fun='BioTIP', PCC_sample.target='average')
 simIc = simulation_Ic(length(CTS),samplesL,df,fun='BioTIP')
 par(resetPar())
 plot_Ic_Simulation(Ic,simIc,ylim = c(0,1.5),

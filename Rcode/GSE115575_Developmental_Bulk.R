@@ -362,7 +362,7 @@ dev.copy2pdf(file = 'ROutputFigs/GSE115575/GenePermutation_weighted_MCI.pdf')
 ######  Ic score, shulffing genes ##############
 C= 1000
 n <- length(CTS)
-Ic_score <- getIc(cyclic_loess, samplesL, CTS, fun="cor")
+Ic_score <- getIc(cyclic_loess, samplesL, CTS, fun="cor", PCC_sample.target='average')
 Ic_score
 # embryonic stem cells     early mesoderm cells      late mesoderm cells 
 #   0.6851250                0.6643228                0.6777760 
@@ -412,7 +412,7 @@ dev.copy2pdf(file=paste0("ROutputFigs/GSE115575/Ic_vsSimulation_",length(CTS),"C
 ######  new Ic score, shulffing genes ##############
 C= 1000
 n <- length(CTS)
-Ic_score <- getIc(cyclic_loess, samplesL, CTS, fun="BioTIP")
+Ic_score <- getIc(cyclic_loess, samplesL, CTS, fun="BioTIP", PCC_sample.target='average')
 Ic_score
 # embryonic stem cells     early mesoderm cells      late mesoderm cells 
 #   0.3574008                0.3377966                0.3485601 

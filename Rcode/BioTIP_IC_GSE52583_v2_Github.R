@@ -380,7 +380,7 @@ set.seed(2020)
 for(i in 1:length(CTS)) 
 {
   n <- length(CTS[[i]])
-  BioTIP_E18 <- getIc(dat, samplesL, genes=CTS[[i]], fun="BioTIP")
+  BioTIP_E18 <- getIc(dat, samplesL, genes=CTS[[i]], fun="BioTIP", PCC_sample.target='average')
   simuBioTIP_g <- simulation_Ic(n, samplesL, dat, B=C,
                                 fun="BioTIP")
   simuBioTIP_s <- matrix(nrow=length(samplesL), ncol=C)
@@ -418,7 +418,7 @@ for(i in 1:length(CTS))
 for(i in 1:length(CTS)) 
 {
   n <- length(CTS[[i]])
-  BioTIP_E18 <- getIc(dat, samplesL, genes=CTS[[i]], fun="cor")
+  BioTIP_E18 <- getIc(dat, samplesL, genes=CTS[[i]], fun="cor", PCC_sample.target='average')
   simuBioTIP_g <- simulation_Ic(n, samplesL,dat, B=C,
                                 fun="cor")
   simuBioTIP_s <- matrix(nrow=length(samplesL), ncol=C)

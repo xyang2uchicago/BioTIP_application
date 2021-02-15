@@ -166,7 +166,7 @@ save(CTS.AT2.E18, MCI.AT2.E18, file="outPut.Rdata/GSE52583/CTS.AT2.RData")
  CTS <- CTS.AT2.E18
  (n <- length(CTS))  #[1] 267
  
- BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE)
+ BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE, PCC_sample.target='average')
  BioTIP_score
  #        14.5        16.5    18.5_AT2       Adult 
  #   0.001826992 0.006089339 1.270759994 0.001503414 
@@ -227,7 +227,7 @@ save(CTS.AT2.E18, MCI.AT2.E18, file="outPut.Rdata/GSE52583/CTS.AT2.RData")
  ######  Ic score, of the same number of random genes ##############
  C= 1000
  n <- length(CTS)
- Ic_score <- getIc(dat, samplesL, CTS, fun="cor")
+ Ic_score <- getIc(dat, samplesL, CTS, fun="cor", PCC_sample.target='average')
  Ic_score
 #    14.5      16.5   18.5_AT2     Adult 
 # 0.1582122 0.8776503 3.8005775 0.3883955 
@@ -282,7 +282,7 @@ save(CTS.AT2.E18, MCI.AT2.E18, file="outPut.Rdata/GSE52583/CTS.AT2.RData")
  load('outPut.Rdata/GSE52583/CTS_AT2.E16.5.RData')
  CTS <- CTS.AT2.E16
  (n <- length(CTS))  # 70
- BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE)
+ BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE, PCC_sample.target='average')
  BioTIP_score
  #      14.5       16.5   18.5_AT2      Adult 
  #  0.11045763 1.14451424 0.18605761 0.01597367 

@@ -110,7 +110,7 @@ simMCI = simulationMCI(length(CTS),samplesL, df)
 
 ## step 4.1) Caslculate the ic-score and evaluate its significance
 ## permulation genes (gene-size controled)
-Ic = getIc(df,samplesL,CTS)
+Ic = getIc(df,samplesL,CTS, PCC_sample.target='average', PCC_sample.target='average')
 simIc = simulation_Ic(length(CTS),samplesL, df)
 
 save(maxMCI, simMCI, simIc, Ic, file='outPut.Rdata/GSE6136/MCI_Ic_genepermutation_GSE6136_BioTIP141g.RData', compress=TRUE)
@@ -129,7 +129,7 @@ dev.copy2pdf(file = 'ROutputFigs/GSE6136/MCI_Ic_GSE6136_5states_5per_09292020.pd
 
 ## step 4.2) further check the significance of CTS by new Ic scores
 ## permulation genes (gene-size controled)
-Ic_adjusted = getIc(df,samplesL,CTS, fun ='BioTIP')
+Ic_adjusted = getIc(df,samplesL,CTS, fun ='BioTIP', PCC_sample.target='average')
 simIc_adjusted = simulation_Ic(length(CTS),samplesL, df,  fun ='BioTIP')
 plot_Ic_Simulation(Ic_adjusted, simIc_adjusted, ylim = c(0,6), las=2, ylab='adjusted Ic',
    order = c('resting','activated','lymphoma_marginal','lymphoma_transitional','lymphoma_aggressive'),
@@ -155,7 +155,7 @@ all(as.vector(dnb_chen) %in% rownames(df))   #[1] TRUE
 set.seed(2020)
 simMCI = simulationMCI(length(dnb_chen),samplesL, df, fun="BioTIP", shrink=FALSE)
 
-Ic = getIc(df,samplesL,dnb_chen, fun='BioTIP')
+Ic = getIc(df,samplesL,dnb_chen, fun='BioTIP', PCC_sample.target='average')
 simIc = simulation_Ic(length(dnb_chen),samplesL, df, fun='BioTIP')
 save(simMCI, simIc, Ic, file='outPut.Rdata/GSE6136/MCI_Ic_genepermutation_log2GSE6136_Chen27g.RData', compress=TRUE)
 
@@ -191,7 +191,7 @@ all(as.vector(dnb_chen) %in% rownames(GSE6136))   #[1] TRUE
 
 simMCI = simulationMCI(length(dnb_chen),samplesL, GSE6136)
 
-Ic = getIc(GSE6136,samplesL,dnb_chen, fun='BioTIP')
+Ic = getIc(GSE6136,samplesL,dnb_chen, fun='BioTIP', PCC_sample.target='average')
 simIc = simulation_Ic(length(dnb_chen),samplesL, GSE6136, fun='BioTIP')
 save(simMCI, simIc, Ic, file='outPut.Rdata/GSE6136/MCI_Ic_genepermutation_GSE6136_Chen27g.RData', compress=TRUE)
 

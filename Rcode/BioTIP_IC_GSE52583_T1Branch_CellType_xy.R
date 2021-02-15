@@ -147,7 +147,7 @@ dev.copy2pdf(file="ROutputFigs/GSE52583/MCI_GenePermutation_1000CTS_AT1.CellType
 C= 1000
 CTS <- CTS.AT1.E16
 n <- length(CTS)
-BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE)
+BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE, PCC_sample.target='average')
 BioTIP_score
 #      14.5       16.5   18.5_AT1 
 #  0.11850833 1.29987843 0.06653507
@@ -207,7 +207,7 @@ wilcox.test(simuBioTIP_g[3,], simuBioTIP_g[2,]) # p-value < 2.2e-16
 ######  Ic score, of the same number of random genes ##############
 C= 1000
 n <- length(CTS)
-Ic_score <- getIc(dat, samplesL, CTS, fun="cor")
+Ic_score <- getIc(dat, samplesL, CTS, fun="cor", PCC_sample.target='average')
 Ic_score
 #    14.5     16.5 18.5_AT1 
 # 1.076046 5.775612 2.280395 

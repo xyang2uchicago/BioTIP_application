@@ -128,10 +128,10 @@ simMCI_control = simulationMCI(length(CTS),sampleL[["control"]], c_df, adjust.si
 
 ## step 4.1) Caslculate the ic-score and evaluate its significance
 
-Ic_treated = getIc(tr_df,sampleL[["treated"]],CTS)
+Ic_treated = getIc(tr_df,sampleL[["treated"]],CTS, PCC_sample.target='average')
 simIc_treated = simulation_Ic(length(CTS),sampleL[["treated"]], tr_df, B=1000)
 
-Ic_control = getIc(c_df,sampleL[["control"]],CTS)
+Ic_control = getIc(c_df,sampleL[["control"]],CTS, PCC_sample.target='average')
 simIc_control = simulation_Ic(length(CTS),sampleL[["control"]], c_df, B=1000)
 
 ## plot 
@@ -250,10 +250,10 @@ dev.copy2pdf(file=paste0("ROutputFigs/GSE2565/control_Ic_vsSimulation_",length(C
 ## step 4.3) further check the significance of CTS by the new Ic scores
 ## This step is not necessary as the sammple size are equalamong states
 
-Ic_adjusted = getIc(tr_df,sampleL[["treated"]],CTS, fun ='BioTIP')
+Ic_adjusted = getIc(tr_df,sampleL[["treated"]],CTS, fun ='BioTIP', PCC_sample.target='average')
 simIc_adjusted = simulation_Ic(length(CTS),sampleL[["treated"]], tr_df,  fun ='BioTIP')
 
-Ic_adjusted_control = getIc(c_df,sampleL[["control"]],CTS, fun ='BioTIP')
+Ic_adjusted_control = getIc(c_df,sampleL[["control"]],CTS, fun ='BioTIP', PCC_sample.target='average')
 simIc_adjusted_control = simulation_Ic(length(CTS),sampleL[["control"]], c_df,  fun ='BioTIP')
 
 # save(Ic_adjusted, simIc_adjusted, Ic_adjusted_control, simIc_adjusted_control,
@@ -366,14 +366,14 @@ dev.copy2pdf(file = 'ROutputFigs/GSE2565/boxplot.GSE2565_MCI_contrl_DNBsim.pdf')
 
 
 ##  Ic for treated  samples
-Ic_chen = getIc(tr_df,sampleL[["treated"]],probeset)
+Ic_chen = getIc(tr_df,sampleL[["treated"]],probeset, PCC_sample.target='average')
 Ic_chensim = simulation_Ic(length(probeset),sampleL[["treated"]],tr_df)
 plot_Ic_Simulation(Ic_chen, Ic_chensim,
     order = c('0','0.5','1','4','8','12','24','48','72'))
 dev.copy2pdf(file = 'ROutputFigs/GSE2565/lines_GSE2565_Ic_chen_sim.pdf')
 
 ## Ic for control sampels 
-Ic_chen_control = getIc(c_df, sampleL[["control"]], probeset)
+Ic_chen_control = getIc(c_df, sampleL[["control"]], probeset, PCC_sample.target='average')
 Ic_chensim_control = simulation_Ic(length(probeset),sampleL[["control"]],c_df)
 plot_Ic_Simulation(Ic_chen_control,Ic_simulation_control,
     order = c('0','0.5','1','4','8','12','24','48','72'),ylim = c(0.3,0.7))

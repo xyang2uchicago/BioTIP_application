@@ -65,7 +65,7 @@ all(rownames(cli) == colnames(dat))  # TRUE
  
  
 
-####### 2) find biomarker ######################
+####### 2) find gene modules ######################
 # Pre-selection Transcript
 cut.preselect = 0.05
 cut.fdr = 0.1
@@ -95,9 +95,10 @@ names(cluster)
 # [1] "14.5"  "16.5"  "18.5_AT1" 
 
 
-# 2.1) Identifying CTS, existing Ic method #########
+# 2.1) Identifying CTS, using MCI (i.e. DNB) method #########
 
-membersL_noweight <- getMCI(cluster,test, adjust.size = FALSE, fun='cor')
+membersL_noweight <- getMCI(cluster,test, adjust.size = FALSE)
+
 names(membersL_noweight)
 #[1] "members" "MCI"     "sd"      "PCC"     "PCCo"  
 pdf(file=paste0("ROutputFigs/GSE52583/AT1_MCI_bar_preselect", cut.preselect, "_fdr",cut.fdr,"_minsize",cut.minsize,".pdf"),
@@ -107,8 +108,8 @@ plotBar_MCI(membersL_noweight, ylim = c(0,50), minsize = cut.minsize)
 dev.off()
 #the numbers in the parenthesis: they are total number of clusters, no control of the cell (sample) size per  cluster
 
-# get the statistics using the old MCI system
-maxMCIms <- getMaxMCImember(membersL_noweight[["members"]],membersL_noweight[["MCI"]],min =cut.minsize)
+# get the statistics using the MCI system
+maxMCIms <- getMaxMCImember(membersL_noweight[["members"]],membersL_noweight[["MCI"]], min =cut.minsize)
 names(maxMCIms)
 #[1] "idx"     "members"
 head(maxMCIms[['idx']])   
@@ -133,7 +134,7 @@ save(CTS.AT1.E16, MCI.AT1.E16, file="outPut.Rdata/GSE52583/CTS.AT1.RData")
 ## estimate significance NOT repeat (takes a while)
  C = 1000
  n <- length(CTS.AT1.E16)
- simuMCI <- simulationMCI(n, samplesL, dat,  B=C, fun="cor")
+ simuMCI <- simulationMCI(n, samplesL, dat,  B=C)
  
 #save(simuMCI, file=paste0("T1_branch.CellType/GSE52583_GenePermutation_",C,"CTS_AT1.CellType", cut.preselect, "_fdr",cut.fdr,"_minsize",cut.minsize,".RData"))
 
@@ -147,7 +148,7 @@ dev.copy2pdf(file="ROutputFigs/GSE52583/MCI_GenePermutation_1000CTS_AT1.CellType
 
 
 
-######## 3)  Finding Tipping Point and verify using IC* score  #################
+######## 3)  Find and verify Tipping Point using IC* score  #################
 
 ##################################################
 ######  BioTIP score, shulffing genes ##############

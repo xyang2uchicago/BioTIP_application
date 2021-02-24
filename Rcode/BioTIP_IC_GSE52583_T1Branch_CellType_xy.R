@@ -95,7 +95,7 @@ names(cluster)
 # [1] "14.5"  "16.5"  "18.5_AT1" 
 
 
-# 2.1) Identifying CTS, old DNB method #########
+# 2.1) Identifying CTS, existing Ic method #########
 
 membersL_noweight <- getMCI(cluster,test, adjust.size = FALSE, fun='cor')
 names(membersL_noweight)
@@ -147,7 +147,7 @@ dev.copy2pdf(file="ROutputFigs/GSE52583/MCI_GenePermutation_1000CTS_AT1.CellType
 
 
 
-######## 3)  Finding Tipping Point and verify using IC score  #################
+######## 3)  Finding Tipping Point and verify using IC* score  #################
 
 ##################################################
 ######  BioTIP score, shulffing genes ##############

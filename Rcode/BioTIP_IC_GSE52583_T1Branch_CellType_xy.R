@@ -71,9 +71,16 @@ cut.preselect = 0.05
 cut.fdr = 0.1
 cut.minsize = 30
 
+## current function works on matrix but not "dgCMatrix"
+if(class(dat)=="dgCMatrix") dat <- as.matrix(dat)
+
 test <- sd_selection(dat, samplesL, cut.preselect)
 names(test)
 head(test[["16.5"]])
+# if the output is a numeric, you might wrongly use dgCMatrix for the sd_selection()
+class(test[[1]])
+# [1] "matrix" "array" 
+
 
 # Network Partition
  

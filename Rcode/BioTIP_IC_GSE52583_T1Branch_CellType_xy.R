@@ -109,23 +109,33 @@ dev.off()
 #the numbers in the parenthesis: they are total number of clusters, no control of the cell (sample) size per  cluster
 
 # get the statistics using the MCI system
-maxMCIms <- getMaxMCImember(membersL_noweight[["members"]],membersL_noweight[["MCI"]], min =cut.minsize)
-names(maxMCIms)
+maxMCI.per.state <- getMaxMCImember(membersL_noweight[["members"]],membersL_noweight[["MCI"]], 
+                            min =cut.minsize, n=1)
+# When set n=2, the output will have one more object "2topest.members"
+names(maxMCI.per.state)
 #[1] "idx"     "members"
-head(maxMCIms[['idx']])   
+head(maxMCI.per.state[['idx']])   
 # 14.5     16.5     18.5_AT1  
 #  21        4        2
 
-head(maxMCIms[['members']][['18.5_AT1']])
+## extract candidate module genes
+head(maxMCI.per.state[['members']][['18.5_AT1']])
  
-maxMCI = getMaxStats(membersL_noweight[['MCI']],maxMCIms[[1]])
+maxMCI = getMaxStats(membersL_noweight[['MCI']], maxMCI.per.state[['idx']])
 head(maxMCI)
 #   14.5      16.5      18.5_AT1      
 # 10.01716   28.77452   18.88909
 
-CTS.AT1.E16 = getCTS(maxMCI, maxMCIms[[2]])
+## extract n states of which the highest MCI within each state are the tops score in teh system
+## Here, we set n=1 to focus on the state '16.5', i.e., the state with toppest MCI.
+CTS.AT1.E16 =  getCTS(maxMCI, membersL_noweight[["members"]])
 # Length: 71
-MCI.AT1.E16 = max(maxMCI) # 28.77452
+
+MCI.AT1.E16 = getTopMCI(membersL_noweight[["members"]],  membersL_noweight[["MCI"]],  
+                       membersL_noweight[["MCI"]], 
+                       min = cut.minsize, n = 1)
+# alternatively, we can simplly get the score by
+max(maxMCI) # 28.77452
 
 save(CTS.AT1.E16, MCI.AT1.E16, file="outPut.Rdata/GSE52583/CTS.AT1.RData")
  

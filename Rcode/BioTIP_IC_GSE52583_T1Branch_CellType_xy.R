@@ -126,15 +126,18 @@ head(maxMCI)
 #   14.5      16.5      18.5_AT1      
 # 10.01716   28.77452   18.88909
 
-## extract n states of which the highest MCI within each state are the tops score in teh system
-## Here, we set n=1 to focus on the state '16.5', i.e., the state with toppest MCI.
+# extract the CTS genes for the state with the higest MCI in the system,
+# which is the predicted 'tipping point.'
 CTS.AT1.E16 =  getCTS(maxMCI, membersL_noweight[["members"]])
 # Length: 71
 
+## Extract n states of which the highest MCI per are the top score in the system.
+## This function is important when analyzing complext system with multile tipping points.
+## Here, we set n=1 to focus on the state '16.5', i.e., the state with the toppest MCI.
 MCI.AT1.E16 = getTopMCI(membersL_noweight[["members"]],  membersL_noweight[["MCI"]],  
                        membersL_noweight[["MCI"]], 
                        min = cut.minsize, n = 1)
-# alternatively, we can simplly get the score by
+# alternatively, in this example, we can simplly get the score by
 max(maxMCI) # 28.77452
 
 save(CTS.AT1.E16, MCI.AT1.E16, file="outPut.Rdata/GSE52583/CTS.AT1.RData")

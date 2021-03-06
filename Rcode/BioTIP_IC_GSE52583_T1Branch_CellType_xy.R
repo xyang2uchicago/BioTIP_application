@@ -29,9 +29,11 @@ setwd("F:/projects/BioTIP/doc/2020_/Applications/")
 
 load(file="F:/projects/BioTIP/doc/2020_/Applications/input.Rdata/GSE52583/GSE52583_monocle_counts.RData")
 dim(dat)
+# [1] 10359   196
 
 load(file="F:/projects/BioTIP/doc/2020_/Applications/input.Rdata/GSE52583/GSE52583_cli.RData")
 dim(cli)
+# [1] 196  21
 
 # check if sample IDs in the 'cli' matris are identical to the sample names in the 'dat' matrix  
 all(rownames(cli) == colnames(dat))  # TRUE
@@ -66,6 +68,15 @@ all(rownames(cli) == colnames(dat))  # TRUE
  dim(dat) # [1] 10359   110
  samplesL <- split(rownames(cli),f = cli$BioTIP_state)
  (tmp <- lapply(samplesL, length))
+ #$`14.5`
+ #[1] 45
+ 
+ #$`16.5`
+ #[1] 27
+ 
+ #$`18.5_AT1`
+ #[1] 38
+ 
  if(any(tmp<4))  samplesL <- samplesL[-which(tmp<4)] 
  
  
@@ -77,10 +88,14 @@ cut.fdr = 0.1
 cut.minsize = 30
 
 ## The current function works on matrix but not "dgCMatrix"
-if(class(dat)=="dgCMatrix") dat <- as.matrix(dat)
+if(class(dat)[1]=="dgCMatrix") dat <- as.matrix(dat)
+#Warning message:
+#In if (class(dat) == "dgCMatrix") dat <- as.matrix(dat) :
+#    the condition has length > 1 and only the first element will be used
 
 test <- sd_selection(dat, samplesL, cut.preselect)
 names(test)
+#[1] "14.5"     "16.5"     "18.5_AT1"
 head(test[["16.5"]])
 # if the output is a numeric, you might wrongly use dgCMatrix for the sd_selection()
 class(test[[1]])
@@ -109,8 +124,9 @@ names(membersL_noweight)
 pdf(file=paste0("ROutputFigs/GSE52583/AT1_MCI_bar_preselect", cut.preselect, "_fdr",cut.fdr,"_minsize",cut.minsize,".pdf"),
     width=10, height=3)
 #plotBar_MCI(membersL_noweight, ylim = c(0,300))
+#possible error message in console if not plotted in pdf: Error in plot.new() : figure margins too large
 plotBar_MCI(membersL_noweight, ylim = c(0,50), minsize = cut.minsize)
-dev.off
+dev.off()
 # Note that in the output bar plot, the numbers on top are the total number of modules (gene clusters) per state.
 # Showing the bars with more than the 'minsize' of genes, with the number of genes on the top of that bar.
 # X-axis is the module ID within each state which may be truncated due to plot-width.
@@ -130,18 +146,23 @@ head(maxMCI.per.state[['idx']])
 # In this case, you can extract the MCI score down to the 2nd highest bar in a state pf interest,
 # by calling function 
 maxMCI.per.state_2 <- getMaxMCImember(membersL_noweight[["members"]],membersL_noweight[["MCI"]], 
-                            min =cut.minsize, n=2
-names(maxMCI.per.state)
+                            min =cut.minsize, n=2)
+names(maxMCI.per.state_2)
 #[1] "idx"     "members"    "2topest.members"
-head(maxMCI.per.state[['idx']][['16.5']])  
-# 16.5     
-# 4  21                                      
+head(maxMCI.per.state_2[['idx']][['16.5']])  
+# 4  21 
+# 4  21
+
 getNextMaxStats(membersL_noweight[['MCI']], idL = maxMCI.per.state_2[['idx']], 
                                 whoisnext='16.5', which.next = 2)
 # 
+#16.5
+#18.54917 
 
 ## Extract candidate module genes
 head(maxMCI.per.state[['members']][['18.5_AT1']])
+#[1] "1200011M11Rik" "9130017N09Rik" "Adamts10"      "Ager"         
+#[5] "Aqp5"          "C1galt1"    
  
 maxMCI = getMaxStats(membersL_noweight[['MCI']], maxMCI.per.state[['idx']])
 head(maxMCI)
@@ -150,8 +171,11 @@ head(maxMCI)
 
 # Extract the CTS genes for the state with the highest MCI in the system,
 # which is the predicted 'tipping point.'
-CTS.AT1.E16 =  getCTS(maxMCI, membersL_noweight[["members"]])
-# Length: 71
+CTS.AT1.E16 =  getCTS(maxMCI, membersL_noweight[["members"]])[["16.5"]]
+#Length: 517
+#Length: 517
+#Length: 516
+class(CTS.AT1.E16) #membership
 
 ## Extract n states of which the highest MCI per are the top score in the system.
 ## This function is important when analyzing a complex system with multiple tipping points.
@@ -168,11 +192,14 @@ MCI.AT1.E16 = getTopMCI(membersL_noweight[["members"]],  membersL_noweight[["MCI
 max(maxMCI) # 28.77452
 
 ## In case you want to look into more modules,
-CTS.AT1.E16.2nd <- maxMCI.per.state_2[['2topest.members']]['16.5'])                                       
-length(CTS.AT1.E16.2nd)  #38   
+CTS.AT1.E16.2nd <- maxMCI.per.state_2[['2topest.members']]['16.5']                                     
+lengths(CTS.AT1.E16.2nd)  #38  
 
 getNextMaxStats(membersL_noweight[['MCI']], idL = maxMCI.per.state_2[['idx']], 
                                 whoisnext='16.5', which.next = 2)
+
+#16.5
+#18.54917 
                                       
 save(CTS.AT1.E16, MCI.AT1.E16, file="outPut.Rdata/GSE52583/CTS.AT1.RData")
  
@@ -201,8 +228,11 @@ dev.copy2pdf(file="ROutputFigs/GSE52583/MCI_GenePermutation_1000CTS_AT1.CellType
 ######  BioTIP score, shulffing genes ##############
 C= 1000
 CTS <- CTS.AT1.E16
+class(CTS) # membership
 n <- length(CTS)
-BioTIP_score <- getIc(dat, samplesL, CTS, fun="BioTIP", shrink=TRUE, PCC_sample.target='average')
+BioTIP_score <- getIc(dat, samplesL, names(CTS), fun="BioTIP", shrink=TRUE, 
+                         PCC_sample.target='average')
+
 BioTIP_score
 #      14.5       16.5   18.5_AT1 
 #  0.11850833 1.29987843 0.06653507
@@ -215,10 +245,12 @@ x <- 2
 #  ns <- length(samplesL[[x]])  # of cells at the state of interest
 simuBioTIP_s <- matrix(nrow=length(samplesL), ncol=C)
 rownames(simuBioTIP_s) = names(samplesL)
+class(CTS) #membership
+#names(CTS) gives exactly gene names of interest
 for(j in 1:length(samplesL)) {
     ns <- length(samplesL[[j]])  # of each state
     simuBioTIP_s[j,] <- simulation_Ic_sample(dat, ns, Ic=BioTIP_score[x],
-                                             genes=CTS, B=C,
+                                             genes=names(CTS), B=C,
                                              fun="BioTIP", shrink=TRUE)
 }
 # save( simuBioTIP_g,  simuBioTIP_s, file="F:/projects/BioTIP/result/GSE52583/AT1_simuBioTIP.RData", compress=TRUE)
@@ -229,9 +261,11 @@ par(mfrow=c(1,2))
 ## global matplot 
 plot_Ic_Simulation(BioTIP_score, simuBioTIP_g, las = 2, ylab="BioTIP",
                    main= paste("CTS.E16 (",n," transcripts)"),
-                   fun="matplot", which2point= '16.5')
+                   fun="matplot", which2point= '16.5') #need finite 'ylim' values, Mar 4th
 ## #local Kernel Density Plot  
 d <- density(simuBioTIP_s['16.5',]) # returns the density data
+#Error in density.default(simuBioTIP_s["16.5", ]) : 
+#    'x' contains missing values
 plot(d) # plots the results
 abline(v=BioTIP_score['16.5'], col="green")
 dev.off() 
@@ -239,33 +273,36 @@ dev.off()
 
 ## Supporting GitHub plots ###      
 par(mfrow=c(2,2))
-
+x <- 2 # set x=2 because 16.5 is the second state in the system
 plot_Ic_Simulation(BioTIP_score, simuBioTIP_g, las = 2, ylab="BioTIP", ylim=c(0,0.12),
                    main=paste(length(CTS),names(samplesL)[x], "genes", "\n","vs. ",C, "gene-permutations"),
                    fun="boxplot", which2point= x)
 plot_SS_Simulation(BioTIP_score, simuBioTIP_g, 
                    main = paste("Delta BioTIP",n,"genes"), 
-                   ylab=NULL)
+                   ylab=NULL) 
 plot_Ic_Simulation(BioTIP_score, simuBioTIP_s, las = 2, ylab="BioTIP", ylim=c(0, 4),
                    main=paste(length(CTS), names(samplesL)[x],"genes", "\n","vs. ",C, "sample-permutations"),
                    fun="matplot", which2point= x)
 plot_SS_Simulation(BioTIP_score, simuBioTIP_s, 
                    main = "Delta BioTIP, label shuffling", 
-                   ylab=NULL)
+                   ylab=NULL) 
 
 dev.copy2pdf(file=paste0("ROutputFigs/GSE52583/AT1_BioTIP_vsSimulation_",length(CTS),"CTS.pdf"))
 wilcox.test(simuBioTIP_g[1,], simuBioTIP_g[2,]) # p-value < 2.2e-16
 wilcox.test(simuBioTIP_g[3,], simuBioTIP_g[2,]) # p-value < 2.2e-16
+#p-values insignificant
 
 
 ##################################################
 ###### The previous Ic score, of the same number of random genes ##############
 C= 1000
 n <- length(CTS)
-Ic_score <- getIc(dat, samplesL, CTS, fun="cor", PCC_sample.target='average')
+class(CTS) #"membership"
+Ic_score <- getIc(dat, samplesL, names(CTS), fun="cor", PCC_sample.target='average')
 Ic_score
 #    14.5     16.5 18.5_AT1 
 # 1.076046 5.775612 2.280395 
+
 simuIc_g  <- simulation_Ic(n, samplesL, dat, B=C,
                            fun='cor')
 
@@ -278,7 +315,7 @@ rownames(simuIc_s) = names(samplesL)
 for(j in 1:length(samplesL)) { 
     ns <- length(samplesL[[j]])  # for each state rewpectively 
     simuIc_s[j,] <- simulation_Ic_sample(dat, ns, Ic=Ic_score[x],
-                                         genes=CTS, B=C,
+                                         genes=names(CTS), B=C,
                                          fun="cor")
 }
 # save( simuIc_g,  simuIc_s, file="F:/projects/BioTIP/result/GSE52583/AT1_simuIC.RData", compress=TRUE)
@@ -290,10 +327,10 @@ par(mfrow=c(2,2))
 
 plot_Ic_Simulation(Ic_score, simuIc_g, las = 2, ylab="Ic",
                    main=paste(length(CTS),names(samplesL)[x], "genes", "\n","vs. ",C, "gene-permutations"),
-                   fun="boxplot", which2point= x)
+                   fun="boxplot", which2point= x) 
 plot_SS_Simulation(Ic_score, simuIc_g, 
                    main = paste("Delta Ic",n,"genes"), 
-                   ylab=NULL)
+                   ylab=NULL) 
 plot_Ic_Simulation(Ic_score, simuIc_s, las = 2, ylab="Ic", ylim=c(1, 10),
                    main=paste(length(CTS), names(samplesL)[x],"genes", "\n","vs. ",C, "sample-permutations"),
                    fun="matplot", which2point= x)

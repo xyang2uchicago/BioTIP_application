@@ -101,7 +101,7 @@ maxMCI = getMaxStats(membersL_noweight[['MCI']],maxMCIms[["idx"]])
 
 ## get biomodule with the highest MCI, CTS
 CTS = getCTS(maxMCI, maxMCIms[["members"]])
-#Length: 141
+#Length: 35
 #save(CTS, file = 'outPut.Rdata/GSE6136_robust_analysis/CTS.GSE6136_5states_5per.rData')
 
 ## step 3.3) check the significance of CTS by MCI scoring system 
@@ -113,7 +113,7 @@ simMCI = simulationMCI(length(CTS),samplesL, df)
 Ic = getIc(df,samplesL,CTS)
 simIc = simulation_Ic(length(CTS),samplesL, df)
 
-save(maxMCI, simMCI, simIc, Ic, file='outPut.Rdata/GSE6136/MCI_Ic_genepermutation_GSE6136_BioTIP141g.RData', compress=TRUE)
+#save(maxMCI, simMCI, simIc, Ic, file='outPut.Rdata/GSE6136/MCI_Ic_genepermutation_GSE6136_BioTIP35g.RData', compress=TRUE)
 
 ## plot 
 par(mfrow = c(1,2))

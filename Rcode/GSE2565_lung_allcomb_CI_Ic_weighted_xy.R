@@ -128,10 +128,10 @@ simMCI_control = simulationMCI(length(CTS),sampleL[["control"]], c_df, adjust.si
 
 ## step 4.1) Caslculate the ic-score and evaluate its significance
 
-Ic_treated = getIc(tr_df,sampleL[["treated"]],CTS, PCC_sample.target='average')
+Ic_treated = getIc(tr_df,sampleL[["treated"]],CTS)
 simIc_treated = simulation_Ic(length(CTS),sampleL[["treated"]], tr_df, B=1000)
 
-Ic_control = getIc(c_df,sampleL[["control"]],CTS, PCC_sample.target='average')
+Ic_control = getIc(c_df,sampleL[["control"]],CTS)
 simIc_control = simulation_Ic(length(CTS),sampleL[["control"]], c_df, B=1000)
 
 ## plot 
@@ -177,6 +177,28 @@ plot_Ic_Simulation(Ic_control,simIc_control,
                    main= paste("Control", length(CTS), "1000 gene permutations"))
 
 dev.copy2pdf(file = 'ROutputFigs/GSE2565/MCI_Ic_genepermutation_GSE256_BioTIP171g.pdf')
+
+## plot Ic* and its delta score for signifiance ########
+par(mfrow = c(2,2))
+plot_Ic_Simulation(Ic_control,  simIc_control,  las = 0,  ylim =  c(0.3,1),  
+                   order = NULL,  main = 'control',  
+                   ylab = "Ic*",  fun = 'boxplot', 
+                   which2point = NULL) 
+######## calculate delta score
+plot_SS_Simulation(Ic_control,  simIc_control, 
+                   main = "Delta of Ic*, 172 genes", 
+                   ylab='control') # [1] 0.302
+plot_Ic_Simulation(Ic_treated,simIc_treated,  las = 0,  ylim =  c(0.3,1),  
+                   order = NULL,  main = 'treat',  
+                   ylab = "Ic*",  fun = 'boxplot', 
+                   which2point = NULL) 
+######## calculate delta score
+plot_SS_Simulation(Ic_treated,simIc_treated, 
+                   main = "Delta of Ic*, 172 genes", 
+                   ylab='treated') # 0
+dev.copy2pdf(file = 'ROutputFigs/GSE2565/boxplot_GSE2565_BioTIP171g_simulation.pdf')
+
+
 
 #### step 4.2) Ic score,  shulffing labelling
 x <- '8'
@@ -250,10 +272,10 @@ dev.copy2pdf(file=paste0("ROutputFigs/GSE2565/control_Ic_vsSimulation_",length(C
 ## step 4.3) further check the significance of CTS by the new Ic scores
 ## This step is not necessary as the sammple size are equalamong states
 
-Ic_adjusted = getIc(tr_df,sampleL[["treated"]],CTS, fun ='BioTIP', PCC_sample.target='average')
+Ic_adjusted = getIc(tr_df,sampleL[["treated"]],CTS, fun ='BioTIP')
 simIc_adjusted = simulation_Ic(length(CTS),sampleL[["treated"]], tr_df,  fun ='BioTIP')
 
-Ic_adjusted_control = getIc(c_df,sampleL[["control"]],CTS, fun ='BioTIP', PCC_sample.target='average')
+Ic_adjusted_control = getIc(c_df,sampleL[["control"]],CTS, fun ='BioTIP')
 simIc_adjusted_control = simulation_Ic(length(CTS),sampleL[["control"]], c_df,  fun ='BioTIP')
 
 # save(Ic_adjusted, simIc_adjusted, Ic_adjusted_control, simIc_adjusted_control,
@@ -285,18 +307,18 @@ dev.copy2pdf(file = 'ROutputFigs/GSE2565/BioTIP_GSE256_BioTIP171g_boxplot.pdf')
 
 
 ####################################################
-## Compare to the 259 genes reported by Chen 2012  ##
+## Compare to the 239 genes reported by Chen 2012  ##
 ####################################################
 ## DNB_lung_injur_Symbols.txt published 262 gene symbols (GSE2565_chen_Ic_CI.R)
 ## manually added in HP,corrected ENSMUSG00000040078, changed C-MYC to MYC,E2F1-1 to E2F1,JUND1 to JUND
-dnb_chen = read.table("input.Rdata/GSE2565/dnb_clean.GSE2565.txt",head = T)
+dnb_chen = read.table("input.Rdata/GSE2565/dnb_clean.GSE2565_2021.txt",head = T)
 dnb_chen <- unique(as.vector(dnb_chen[,1]))
 length(dnb_chen)  #[1] 259  gene symbols
 
 probesetid = read.delim("input.Rdata/GSE2565/GPL8321-17396.txt",comment = '#',head = T)
 table(dnb_chen %in% toupper(probesetid$Gene.Symbol))
 #FALSE  TRUE 
-#   31   228 
+#   23   239  
 tmp = dnb_chen[!dnb_chen %in% toupper(probesetid$Gene.Symbol)]
  
 reannot = read.table("input.Rdata/GSE2565/reannotated_GSE3565.txt")
@@ -304,12 +326,12 @@ dnb_symbol = c(as.character(dnb_chen),as.character(reannot[,1]))
 
 table(dnb_symbol %in% toupper(probesetid$Gene.Symbol))
 # FALSE  TRUE 
-#  31   239
+#  23   239
 probeset = probesetid[match(dnb_symbol,toupper(probesetid$Gene.Symbol)),'ID']
-length(probeset) #[1] 270
+length(probeset) #[1] 262
 table(is.na(probeset))
 #FALSE  TRUE 
-# 239    31
+# 239    23
 probeset = probeset[!is.na(probeset)]
 length(probeset) #[1] 239
 
@@ -365,17 +387,36 @@ plot_MCI_Simulation(CI_chen, mCI_chen[,1:100],las = 0,
 dev.copy2pdf(file = 'ROutputFigs/GSE2565/boxplot.GSE2565_MCI_contrl_DNBsim.pdf')
 
 
-##  Ic for treated  samples
-Ic_chen = getIc(tr_df,sampleL[["treated"]],probeset, PCC_sample.target='average')
+# ##  Ic for treated  samples
+Ic_chen = getIc(tr_df,sampleL[["treated"]],probeset)
 Ic_chensim = simulation_Ic(length(probeset),sampleL[["treated"]],tr_df)
-plot_Ic_Simulation(Ic_chen, Ic_chensim,
-    order = c('0','0.5','1','4','8','12','24','48','72'))
-dev.copy2pdf(file = 'ROutputFigs/GSE2565/lines_GSE2565_Ic_chen_sim.pdf')
-
-## Ic for control sampels 
-Ic_chen_control = getIc(c_df, sampleL[["control"]], probeset, PCC_sample.target='average')
+# plot_Ic_Simulation(Ic_chen, Ic_chensim,
+#     order = c('0','0.5','1','4','8','12','24','48','72'))
+# dev.copy2pdf(file = 'ROutputFigs/GSE2565/lines_GSE2565_Ic_chen_sim.pdf')
+# 
+# ## Ic for control sampels 
+Ic_chen_control = getIc(c_df, sampleL[["control"]], probeset)
 Ic_chensim_control = simulation_Ic(length(probeset),sampleL[["control"]],c_df)
-plot_Ic_Simulation(Ic_chen_control,Ic_simulation_control,
-    order = c('0','0.5','1','4','8','12','24','48','72'),ylim = c(0.3,0.7))
-dev.copy2pdf(file = 'ROutputFigs/GSE2565/lines_GSE2565_Ic_chen_sim_contrl.pdf')
+# plot_Ic_Simulation(Ic_chen_control,Ic_simulation_control,
+#     order = c('0','0.5','1','4','8','12','24','48','72'),ylim = c(0.3,0.7))
+# dev.copy2pdf(file = 'ROutputFigs/GSE2565/lines_GSE2565_Ic_chen_sim_contrl.pdf')
 
+pdf(file = 'ROutputFigs/GSE2565/boxplot_GSE2565_simulation_Chen.pdf')
+par(mfrow = c(2,2))
+plot_Ic_Simulation(Ic_chen_control,Ic_simulation_control,  las = 0,  ylim =  c(0.05,0.35),  
+                   order = NULL,  main = 'control',  
+                   ylab = "Ic*",  fun = 'boxplot', 
+                   which2point = NULL) 
+######## calculate delta score
+plot_SS_Simulation(Ic_chen_control,Ic_simulation_control, 
+                   main = paste("Delta of Ic*", length(dnb_id),"genes"), 
+                   ylab='control') # [1] 0.302
+plot_Ic_Simulation(Ic_chen, Ic_chensim,  las = 0,  ylim =  c(0.05,0.35),  
+                   order = NULL,  main = 'treat',  
+                   ylab = "Ic*",  fun = 'boxplot', 
+                   which2point = NULL) 
+######## calculate delta score
+plot_SS_Simulation(Ic_chen, Ic_chensim, 
+                   main = paste("Delta of Ic*", length(dnb_id),"genes"), 
+                   ylab='treated') # 0
+dev.off()

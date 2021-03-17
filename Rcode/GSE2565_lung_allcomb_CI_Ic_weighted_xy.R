@@ -135,7 +135,7 @@ Ic_control = getIc(c_df,sampleL[["control"]],CTS)
 simIc_control = simulation_Ic(length(CTS),sampleL[["control"]], c_df, B=1000)
 
 ## plot 
-load(file='outPut.Rdata/GSE2565/MCI_Ic_genepermutation_GSE256_BioTIP171g.RData')
+load(file='outPut.Rdata/GSE2565/MCI_Ic_genepermutation_GSE2565_BioTIP172g.RData')
 
 quickMCI = function(df,sampleL,probeset){
   countsL= lapply(sampleL[['control']], function(x) df[,x])
@@ -176,7 +176,7 @@ plot_Ic_Simulation(Ic_control,simIc_control,
                    order = c('0','0.5','1','4','8','12','24','48','72'),
                    main= paste("Control", length(CTS), "1000 gene permutations"))
 
-dev.copy2pdf(file = 'ROutputFigs/GSE2565/MCI_Ic_genepermutation_GSE256_BioTIP171g.pdf')
+dev.copy2pdf(file = 'ROutputFigs/GSE2565/MCI_Ic_genepermutation_GSE2565_BioTIP172g.pdf')
 
 ## plot Ic* and its delta score for signifiance ########
 par(mfrow = c(2,2))
@@ -196,7 +196,7 @@ plot_Ic_Simulation(Ic_treated,simIc_treated,  las = 0,  ylim =  c(0.3,1),
 plot_SS_Simulation(Ic_treated,simIc_treated, 
                    main = "Delta of Ic*, 172 genes", 
                    ylab='treated') # 0
-dev.copy2pdf(file = 'ROutputFigs/GSE2565/boxplot_GSE2565_BioTIP171g_simulation.pdf')
+dev.copy2pdf(file = 'ROutputFigs/GSE2565/boxplot_GSE2565_BioTIP172g_simulation.pdf')
 
 
 
@@ -226,7 +226,7 @@ for(j in 1:length(sampleL[["control"]])) {
 save(simMCI_treated,simMCI_control, Ic_treated, Ic_control,
      simIc_treated, simIc_control, 
      simuIc_treated_s, simuIc_control_s,
-     file='outPut.Rdata/GSE2565/MCI_Ic_genepermutation_GSE256_BioTIP171g.RData', compress=TRUE)
+     file='outPut.Rdata/GSE2565/MCI_Ic_genepermutation_GSE2565_BioTIP172g.RData', compress=TRUE)
 
 
 ## plot 
@@ -279,7 +279,7 @@ Ic_adjusted_control = getIc(c_df,sampleL[["control"]],CTS, fun ='BioTIP')
 simIc_adjusted_control = simulation_Ic(length(CTS),sampleL[["control"]], c_df,  fun ='BioTIP')
 
 # save(Ic_adjusted, simIc_adjusted, Ic_adjusted_control, simIc_adjusted_control,
-# file="F:/projects/BioTIP/result/GSE2565/newIc_genepermutation_GSE256_BioTIP171g.RData")
+# file="F:/projects/BioTIP/result/GSE2565/newIc_genepermutation_GSE2565_BioTIP172g.RData")
 
 
 par(mfrow = c(1,2))
@@ -290,7 +290,7 @@ plot_Ic_Simulation(Ic_adjusted_control, simIc_adjusted_control,  las=2, ylab='ne
    order = c('0','0.5','1','4','8','12','24','48','72'),
    main= paste("Control:", length(CTS), "1000 gene permutations") )
    
-dev.copy2pdf(file = 'ROutputFigs/GSE2565/BioTIP_GSE256_BioTIP171g.pdf')
+dev.copy2pdf(file = 'ROutputFigs/GSE2565/BioTIP_GSE2565_BioTIP172g.pdf')
 
 par(mfrow = c(1,2))
 plot_Ic_Simulation(Ic_adjusted, simIc_adjusted,  las=2, ylab='new Ic*', ylim=c(0,0.8),
@@ -300,7 +300,7 @@ plot_Ic_Simulation(Ic_adjusted_control, simIc_adjusted_control,  las=2, ylab='ne
                    order = c('0','0.5','1','4','8','12','24','48','72'),
                    main= paste("Control:", length(CTS), "1000 gene permutations"),fun="boxplot" )
 
-dev.copy2pdf(file = 'ROutputFigs/GSE2565/BioTIP_GSE256_BioTIP171g_boxplot.pdf')
+dev.copy2pdf(file = 'ROutputFigs/GSE2565/BioTIP_GSE2565_BioTIP172g_boxplot.pdf')
 
 
 

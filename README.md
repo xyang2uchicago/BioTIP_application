@@ -261,6 +261,8 @@ plot_Ic_Simulation(IC, RandomIc, las = 2)
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
 
+## Example with Single-Cell RNA Dataset: Nestorowa
+
 
  
 

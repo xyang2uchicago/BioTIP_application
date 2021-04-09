@@ -1,5 +1,5 @@
 # BioTIP_Application: a collection of example analyses using the package BioTIP
-### An Overview of BioTIb
+### An Overview of BioTIP
 In short, BioTIP is an R-package designated for characterization of biological tipping-points. A more detailed overview - what are tipping points, how BioTIP improve on existing methods, what datasets can BioTIP be applied to, and how to install BioTIP - can be found at [BioTIP](https://github.com/xyang2uchicago/BioTIP).
 
 <a name='WORKFLOW'></a>

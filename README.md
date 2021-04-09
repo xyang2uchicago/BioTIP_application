@@ -23,6 +23,7 @@ The following chart shows how BioTIP performs in the single-cell downstream anal
      width="600" type="application/pdf"/> 
 
 We will perform downstream analysis of the existing the BloodNet dataset, the hematopoietic stem and progenitor cells (HSPCs) from ten female mice. The detail of the experiment can be found in details on our [Vignette](https://bioconductor.org/packages/release/bioc/vignettes/BioTIP/inst/doc/BioTIP.html#Data%20Preprocessing%20with%20Trajectory%20Building%20Tools). 
+
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
 
 <a name='bulkRNA'></a>

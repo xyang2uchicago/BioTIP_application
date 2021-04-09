@@ -274,6 +274,7 @@ plot_Ic_Simulation(Ic,  Ic_simuG,  las = 0,  ylim =  c(0,1.5),
                    order = NULL,  main = 'BioTIP 35 genes',  
                    ylab = "Ic*",  fun = 'boxplot', 
                    which2point = NULL) 
+
 plot_SS_Simulation(Ic,  Ic_simuG, 
                    main = paste("Delta of Ic*", length(CTS),"genes"), 
                    ylab='BioTIP 35 genes')

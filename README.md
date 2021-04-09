@@ -262,6 +262,12 @@ plot_Ic_Simulation(IC, RandomIc, las = 2)
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
 
 ## Example with Single-Cell RNA Dataset: Nestorowa
+The following chart shows how BioTIP performs in the single-cell downstream analysis and how BioTIP differs from the existing methods - instead of discovering marker genes from the differential expression analysis, BioTIP introduces the critical transition analysis.
+
+<img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig1_scRNARNAseq_pipeline_2021_xy.jpg"
+     alt="BioTIP workflow"
+     width="600" type="application/pdf"/> 
+
 
 
  

@@ -1,12 +1,6 @@
 # BioTIP_Application: a collection of example analyses using the package BioTIP
-Abrupt and irreversible changes (or **tipping points**) are decisive in disease and normal phenotypic progress [(Scheffer 2012)](https://www.ncbi.nlm.nih.gov/pubmed/23087241). Often, however, computational approaches detect critical-transition signals (**CTSs**) indicating tipping points from longitudinal data – which often are not available for patient transcriptomes. 
-
-Here we adopt historical tipping-point approaches [(Chen 2012](https://www.ncbi.nlm.nih.gov/pubmed/22461973), [Mojtahedi 2016](https://www.ncbi.nlm.nih.gov/pubmed/28027308)) to cross-sectional data, by modeling high probability space of phenotypes. We formulate this task as a generalized CTS-searching problem and derive a robust algorithm to solve it.
-
-We construct a comprehensive scoring scheme and successfully apply the scheme to lymphoma, lung-injury, heart-development, and neuroblastoma systems. Thus, we identify a spatial gene-expression feature for systematic dynamics at phenotypic tipping points, which can be exploited to infer functional genetic variations and transcription factors. 
-
-Our framework (‘BioTIP’ -- **Bio**logical **T**ipping point **I**dentification **P**ackage) can analyze not only time-course but also cross-sectional transcriptomes and is compatible with noncoding RNA profiles. Additional knowledge discovery that underlines the critical transition of a system can be tested using our approach. See more demon codes and outputs at https://github.com/xyang2uchicago/BioTIP_application/tree/master/Rcode
-## 
+### An Overview of BioTIb
+In short, BioTIP is an R-package designated for characterization of biological tipping-points. A more detailed overview - what are tipping points, how BioTIP improve on existing methods, what datasets can BioTIP be applied to, and how to install BioTIP - can be found at [BioTIP](https://github.com/xyang2uchicago/BioTIP).
 
 <a name='WORKFLOW'></a>
 ## BioTIP workflow  

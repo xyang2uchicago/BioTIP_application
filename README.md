@@ -84,7 +84,7 @@ names(samplesL)
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
 
 
-Standard Identification in 5 steps 
+Standard Identification in 6 steps 
 ------
 <a name="Finding Tipping Point"></a>
 __S1: Finding Tipping Point__
@@ -257,6 +257,26 @@ tipping point identified.
 RandomIc = simulation_Ic_sample(df, sampleNo=length(samplesL[['lymphoma_aggressive']]), 
                                  Ic=IC[['lymphoma_aggressive']], genes=CTS, B=100)
 plot_Ic_Simulation(IC, RandomIc, las = 2)                                 
+```
+
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
+
+<a name="Evaluate Delta Score"></a>
+ __S6: Evaluate Delta Score__
+
+The final step is to calculate the Delta Score, which evaluates the significance of our identified CTS. 
+```{r}
+plot_SS_Simulation(Ic,  Ic_simuG, 
+                   main = paste("Delta of Ic*", length(CTS),"genes"), 
+                   ylab='BioTIP 35 genes') # [1] 0 
+
+plot_Ic_Simulation(Ic,  Ic_simuG,  las = 0,  ylim =  c(0,1.5),  
+                   order = NULL,  main = 'BioTIP 35 genes',  
+                   ylab = "Ic*",  fun = 'boxplot', 
+                   which2point = NULL) 
+plot_SS_Simulation(Ic,  Ic_simuG, 
+                   main = paste("Delta of Ic*", length(CTS),"genes"), 
+                   ylab='BioTIP 35 genes')
 ```
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 

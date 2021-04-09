@@ -12,9 +12,9 @@ The general workflow of BioTIP is detailed in the following chart:
 
 Examples of BioTIP applied to various datasets can be found in the folder [Rcode](https://github.com/xyang2uchicago/BioTIP_application/tree/master/Rcode). We will present two cases in the following sections, one with a bulk RNA dataset and the other with a single-cell RNA dataset.
 
+## Example with Bulk RNA dataset: GSE6136
 
-## 
-
+###
 Data preprocession before running BioTIP 
 ------
 

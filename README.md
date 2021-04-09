@@ -10,8 +10,22 @@ The general workflow of BioTIP is detailed in the following chart:
      alt="BioTIP workflow"
      width="600" type="application/pdf"/>
 
-Examples of BioTIP applied to various datasets can be found in the folder [Rcode](https://github.com/xyang2uchicago/BioTIP_application/tree/master/Rcode). We will present two cases in the following sections, one with a bulk RNA dataset and the other with a single-cell RNA dataset.
+Examples of BioTIP applied to various datasets can be found in the folder [Rcode](https://github.com/xyang2uchicago/BioTIP_application/tree/master/Rcode). 
 
+We here present two cases in the following sections, one with a single-cell RNA dataset and the other with a bulk RNA dataset.
+
+<a name='scRNA'></a>
+## Example with Single-Cell RNA Dataset: BloodNet (Nestorowa 2016)
+The following chart shows how BioTIP performs in the single-cell downstream analysis and how BioTIP differs from the existing methods - instead of discovering marker genes from the differential expression analysis, BioTIP introduces the critical transition analysis.
+
+<img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig1_scRNARNAseq_pipeline_2021_xy.jpg"
+     alt="BioTIP workflow"
+     width="600" type="application/pdf"/> 
+
+We will perform downstream analysis of the existing the BloodNet dataset, the hematopoietic stem and progenitor cells (HSPCs) from ten female mice. The detail of the experiment can be found in details on our [Vignette](https://bioconductor.org/packages/release/bioc/vignettes/BioTIP/inst/doc/BioTIP.html#Data%20Preprocessing%20with%20Trajectory%20Building%20Tools). 
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
+
+<a name='bulkRNA'></a>
 ## Example with Bulk RNA dataset: GSE6136
 
 ###
@@ -277,14 +291,7 @@ plot_SS_Simulation(Ic,  Ic_simuG,
 
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
 
-## Example with Single-Cell RNA Dataset: Nestorowa
-The following chart shows how BioTIP performs in the single-cell downstream analysis and how BioTIP differs from the existing methods - instead of discovering marker genes from the differential expression analysis, BioTIP introduces the critical transition analysis.
 
-<img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig1_scRNARNAseq_pipeline_2021_xy.jpg"
-     alt="BioTIP workflow"
-     width="600" type="application/pdf"/> 
-
-We will perform downstream analysis of the existing dataset Nestorowa, 2016, the hematopoietic stem and progenitor cells (HSPCs) from ten female mice. The detail of the experiment can be found in details on our [Vignette](https://bioconductor.org/packages/release/bioc/vignettes/BioTIP/inst/doc/BioTIP.html#Data%20Preprocessing%20with%20Trajectory%20Building%20Tools). 
 
 
 

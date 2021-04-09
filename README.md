@@ -1,4 +1,4 @@
-## BioTIP_Application: a collection of example case studies using the package BioTIP
+# BioTIP_Application: a collection of example analyses using the package BioTIP
 Abrupt and irreversible changes (or **tipping points**) are decisive in disease and normal phenotypic progress [(Scheffer 2012)](https://www.ncbi.nlm.nih.gov/pubmed/23087241). Often, however, computational approaches detect critical-transition signals (**CTSs**) indicating tipping points from longitudinal data – which often are not available for patient transcriptomes. 
 
 Here we adopt historical tipping-point approaches [(Chen 2012](https://www.ncbi.nlm.nih.gov/pubmed/22461973), [Mojtahedi 2016](https://www.ncbi.nlm.nih.gov/pubmed/28027308)) to cross-sectional data, by modeling high probability space of phenotypes. We formulate this task as a generalized CTS-searching problem and derive a robust algorithm to solve it.

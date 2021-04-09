@@ -1,6 +1,6 @@
-# BioTIP_Application: a collection of example analyses using the package BioTIP
+# BioTIP_Application: a collection of transcriptomic data analysis using the package BioTIP
 ## An Overview of BioTIP
-In short, BioTIP is an R-package designated for characterization of biological tipping-points. A more detailed overview - (1) what are tipping points, (2) how BioTIP improve on existing methods, (3) what datasets can BioTIP be applied to, and (4) how to install BioTIP - can be found at [BioTIP](https://github.com/xyang2uchicago/BioTIP).
+In short, BioTIP is an R-package designated for the characterization of biological tipping points. A more detailed overview - (1) what are tipping points, (2) how BioTIP improves on existing methods, (3) what datasets can BioTIP be applied to, and (4) how to install BioTIP - can be found at [BioTIP](https://github.com/xyang2uchicago/BioTIP).
 
 <a name='WORKFLOW'></a>
 ## BioTIP workflow  
@@ -15,14 +15,14 @@ Examples of BioTIP applied to various datasets can be found in the folder [Rcode
 ## Example with Bulk RNA dataset: GSE6136
 
 ###
-Data preprocession before running BioTIP 
+Data preprocessing before running BioTIP 
 ------
 
 <a name="Data Preprocessing"></a>
  __Data Preprocessing__
 
-An existing dataset, GSE6136, is used to demonstrate how our functions are applied. Samples were collected from transgenic mouse lymphomas and divided into five groups based on clinical presentation, pathology and flow cytometry ([Lenburg 2007](https://www.ncbi.nlm.nih.gov/pubmed/?term=17166848)), thus belonging to cross-sectional profiles. Noticing these five group represent a control stage similar to non-transgenic B cells and four major periods of B-cell lymphomagenesis, Dr. Chen and coauthors used the DNB method to identify the pre-disease state exists around the normal activated period (P2), i.e., the system transitions to the disease state around the transitional lymphoma period (Figure S12 in publication ([Chen 2012)](https://www.ncbi.nlm.nih.gov/pubmed/22461973)). 
-Start by installing the package 'BioTIP' and other dependent packages such as stringr, psych, and igraph if necessary. Below are some examples.
+An existing dataset, GSE6136, is used to demonstrate how our functions are applied. Samples were collected from transgenic mouse lymphomas and divided into five groups based on clinical presentation, pathology, and flow cytometry ([Lenburg 2007](https://www.ncbi.nlm.nih.gov/pubmed/?term=17166848)), thus belonging to cross-sectional profiles. Noticing these five group represent a control stage similar to non-transgenic B cells and four major periods of B-cell lymphomagenesis, Dr. Chen and coauthors used the DNB method to identify the pre-disease state exists around the normal activated period (P2), i.e., the system transitions to the disease state around the transitional lymphoma period (Figure S12 in publication ([Chen 2012)](https://www.ncbi.nlm.nih.gov/pubmed/22461973)). 
+Start by installing the package 'BioTIP' and other dependent packages such as stringr, psych, and igraph if not. Below are some examples.
 
 ```{r}
 # load package
@@ -35,7 +35,7 @@ dim(GSE6136)               #[1] 22690 rows and 26 columns
 rm(GSE6136_matrix)
 ```
 
-  The summary of GEO-downloaded clinical phenpotpic matrix GSE6136_cli is shown below. 
+  The summary of GEO-downloaded clinical information GSE6136_cli is shown below. 
 
 ```{r}
 #requires library(stringr)
@@ -71,7 +71,7 @@ df <- log2(GSE6136+1)
 
 ```
 
-The sample assembles are preiously published.
+The sample assembles are previously published.
 ```
 tmp <- names(table(cli$group))
 cli$group = factor(cli$group, levels=c('resting','activated','lymphoma_marginal','lymphoma_transitional','lymphoma_aggressive'))
@@ -89,7 +89,7 @@ Standard Identification in 6 steps
 <a name="Finding Tipping Point"></a>
 __S1: Finding Tipping Point__
 
-The first step is to calculate an Index of Critical transition (Ic score) of the dataset. One can use the getIc function to calculate the Ic score based on randomly selected genes (20-1000). The function getIc has a key parameter fun which gives the options to call the existing Ic score or the proposed new Ic* score.
+The first step is to calculate an Index of Critical transition (Ic score) of the dataset. One can use the function 'getIc' to calculate the Ic score based on randomly selected genes (20-1000). 'GetIc' has a key parameter fun which gives the options to call the existing Ic score or the proposed new Ic* score.
   
 ```{r}
 RandomG <- sample(rownames(df), 100)
@@ -114,7 +114,7 @@ plot_Ic_Simulation(IC,simuIC,las = 2)
 <a name="Pre-selection Transcript"></a>
  __S2: Pre-selection Transcript__
 
-  Once pre-processed, we can analyze the clinical stage ensembles. Here, we
+  Once pre-processed, we can analyze the clinical-stage ensembles. Here, we
   demonstrate a pre-selection of 226 (1%) genes for each state.
 
 ```{r, warning=FALSE}
@@ -142,10 +142,7 @@ lapply(test, dim)
 <a name="Network Partition"></a>
  __S3: Network Partition__
 
-  A graphical represetation of genes of interest can be achieved using the
-  functions shown below. The `getNetwork` function will obtain an igraph object
-  based on a pearson correlation of `test`. This `igraphL` object is then run
-  using the `getCluster_methods` function classify nodes.
+  A graphical presentation of genes of interest can be achieved using the following functions. The `getNetwork` function will obtain an igraph object based on Pearson Correlation of `test`. This `igraphL` object is then run using the `getCluster_methods` function classify nodes.
 
 ```{r,echo=TRUE, warning=FALSE}
 library(igraph)
@@ -165,13 +162,12 @@ class(cluster[[1]])  #[1] "communities"
 <a name="Identifying Dynamic Network Biomodule"></a>
  __S4: Identifying Dynamic Network Biomodule__
 
-Here, ‘module’ refers to a cluster of network nodes (e.g. transcripts) highly linked (e.g. by correlation). “Biomodule” refers to the module resenting a highest score called “Module-Criticality Index (MCI)” per state.
+Here, ‘module’ refers to a cluster of network nodes (e.g. transcripts) highly linked (e.g. by correlation). “Biomodule” refers to the module resenting significantly highest score called “Module-Criticality Index (MCI)” per state.
 
-  The following step shows a graph of classified clustered samples for five
-  different stages. MCI score is calculated for each module using the `getMCI`
-  function. The `getMaxMCImember` function will obtain a list of modules with highest
+  The following step shows a graph of classified clustered samples for five different states. MCI score is calculated for each module using the `getMCI`
+  function. The `getMaxMCImember` function will obtain a list of modules with the highest
   MCI at each stage. Use `"head(maxCIms)"` to view the MCI scores calculated. Use
-  `plotMaxMCI` function to view the line plot of highest MCI score at each stage.
+  `plotMaxMCI` function to view the line linking the highest MCI score at each state.
 
 ```{r,echo=TRUE, warning=FALSE}
 membersL_noweight <- getMCI(cluster,test,adjust.size = FALSE)
@@ -189,7 +185,7 @@ head(maxMCIms[['members']][['lymphoma_aggressive']])
 ```
 
 
-  To get the selected statistics of biomodules (the module that has the highest MCI score) of each state, please run the following 
+  To get the selected statistics of biomodule (i.e., the gene module that presents the highest MCI score) of each state, please run the following 
 
 ```{r}
 biomodules = getMaxStats(membersL_noweight[['members']],maxMCIms[[1]])
@@ -215,8 +211,7 @@ plotMaxMCI(maxMCIms,membersL_noweight[[2]],states = names(samplesL),las = 2)
 
   We then perform simulation for MCI scores based on identified signature size
   (length(CTS) ) using the `simulationMCI` function.Use `plot_MCI_simulation`
-  function to visualize the result. This step usually takes 20-30mins, so here
-  to save the time, we picked a small number 3 as the length of the CTS.
+  function to visualize the result. This step usually takes 20-30mins, so here to save time, we picked a small number 3 as the length of the CTS.
   
 ```{r,echo=TRUE, warning=FALSE}
 simuMCI <- simulationMCI(3,samplesL,df)
@@ -228,7 +223,7 @@ plot_MCI_Simulation(maxMCI,simuMCI)
 <a name="Evaluate Tipping Point"></a>
  __S5: Evaluate Tipping Point__
 
-The next step is to calculate an Index of Critical transition (Ic score) of the dataset. First, use the getIc function to calculate the Ic score based on the biomodule previously identified. We use the plotIc function to draw a line plot of the Ic score. 
+The next step is to calculate an Index of Critical transition (Ic score) of the dataset. First, use the getIc function to calculate the Ic score based on the biomodule previously identified. We use the function plotIc to draw a line plot of the Ic score. 
   
 ```{r}
 IC <- getIc(df,samplesL,CTS)
@@ -238,7 +233,7 @@ plotIc(IC,las = 2)
 
 Then use the two functions to evaluate two types of empirical significance,
 respectively. The first function simulation_Ic calculates random Ic-scores by
-shuffling features (transcripts). Showing in the plot is Ic-score of the
+shuffling features (transcripts). Showing in the plot is Ic scores of the
 identification (red) against its corresponding size-controlled random scores
 (grey).
 

@@ -1,6 +1,6 @@
 # BioTIP_Application: a collection of example analyses using the package BioTIP
 ## An Overview of BioTIP
-In short, BioTIP is an R-package designated for characterization of biological tipping-points. A more detailed overview - what are tipping points, how BioTIP improve on existing methods, what datasets can BioTIP be applied to, and how to install BioTIP - can be found at [BioTIP](https://github.com/xyang2uchicago/BioTIP).
+In short, BioTIP is an R-package designated for characterization of biological tipping-points. A more detailed overview - (1) what are tipping points, (2) how BioTIP improve on existing methods, (3) what datasets can BioTIP be applied to, and (4) how to install BioTIP - can be found at [BioTIP](https://github.com/xyang2uchicago/BioTIP).
 
 <a name='WORKFLOW'></a>
 ## BioTIP workflow  
@@ -9,6 +9,10 @@ The general workflow of BioTIP is detailed in the following chart:
    <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/FigS1_BioTIP_pipeline_detailed_v7.jpg"
      alt="BioTIP workflow"
      width="600" type="application/pdf"/>
+
+Examples of BioTIP applied various datasets can be found in the folder Rcode. We will present two cases in the following sections, one with a bulk RNA dataset and the other with a single-cell RNA dataset.
+
+
 ## 
 
 Data preprocession before running BioTIP 

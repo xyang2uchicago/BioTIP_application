@@ -12,7 +12,7 @@ The general workflow of BioTIP is detailed in the following chart:
 
 Examples of BioTIP applied to various datasets can be found in the folder [Rcode](https://github.com/xyang2uchicago/BioTIP_application/tree/master/Rcode). 
 
-We here present two cases in the following sections, one with [a single-cell RNA dataset](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#example-with-single-cell-rna-dataset-bloodnet-nestorowa-2016) and the other with [a bulk RNA dataset](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#example-with-bulk-rna-dataset-gse6136).
+We here present two cases in the following sections, one with [a single-cell RNA dataset](https://github.com/xyang2uchicago/BioTIP_application#example-with-single-cell-rna-dataset-bloodnet-nestorowa-2016) and the other with [a bulk RNA dataset](https://github.com/xyang2uchicago/BioTIP_application#example-with-bulk-rna-dataset-gse6136).
 
 <a name='scRNA'></a>
 ## Example with Single-Cell RNA Dataset: BloodNet (Nestorowa 2016)
@@ -286,7 +286,7 @@ plot_SS_Simulation(Ic,  Ic_simuG,
 ```
 [Go to Top](https://github.com/xyang2uchicago/BioTIP_application#standard-identification-in-6-steps) 
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#example-with-bulk-rna-dataset-gse6136) 
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application#example-with-bulk-rna-dataset-gse6136) 
 
 
 

@@ -24,12 +24,10 @@ The following chart shows how BioTIP performs in the single-cell downstream anal
 
 We will perform downstream analysis of the existing the BloodNet dataset, the hematopoietic stem and progenitor cells (HSPCs) from ten female mice. The detail of the experiment can be found in details on our [Vignette](https://bioconductor.org/packages/release/bioc/vignettes/BioTIP/inst/doc/BioTIP.html#Data%20Preprocessing%20with%20Trajectory%20Building%20Tools). 
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
-
 <a name='bulkRNA'></a>
 ## Example with Bulk RNA dataset: GSE6136
 As indicated in the [BioTIP workflow chart](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow), the analysis can be divided into the following two sections:
-1. [Data preprocessing before running BioTIP](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#data-preprocessing-before-running-biotip)
+1. [Data preprocessing before running BioTIP](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#data-preprocessing-before-running-biotip),
 2. [Standard Identification in 6 steps](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#standard-identification-in-6-steps), detailed in the [BioTIP workflow chart](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow).
 ###
 Data preprocessing before running BioTIP 
@@ -98,7 +96,7 @@ names(samplesL)
 #[4] "lymphoma_transitional" "lymphoma_aggressive"  
 ```
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#example-with-bulk-rna-dataset-gse6136) 
 
 
 Standard Identification in 6 steps 

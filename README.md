@@ -96,7 +96,7 @@ names(samplesL)
 #[4] "lymphoma_transitional" "lymphoma_aggressive"  
 ```
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#example-with-bulk-rna-dataset-gse6136) 
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application#example-with-bulk-rna-dataset-gse6136) 
 
 
 Standard Identification in 6 steps 

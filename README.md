@@ -121,9 +121,7 @@ simuIC <- simulation_Ic(length(RandomG),samplesL,df, fun='BioTIP')
 par(mar = c(10,5,0,2))
 plot_Ic_Simulation(IC,simuIC,las = 2)
 ```
-  
-  
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
+
 <a name="Acknowledgements"></a>
 
 <a name="Pre-selection Transcript"></a>
@@ -152,8 +150,6 @@ lapply(test, dim)
 #[1] 226   7
 ```
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
-
 <a name="Network Partition"></a>
  __S3: Network Partition__
 
@@ -171,8 +167,6 @@ names(cluster)
 class(cluster)  #[1] "list"
 class(cluster[[1]])  #[1] "communities"
 ```
-
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
 
 <a name="Identifying Dynamic Network Biomodule"></a>
  __S4: Identifying Dynamic Network Biomodule__
@@ -233,8 +227,6 @@ simuMCI <- simulationMCI(3,samplesL,df)
 plot_MCI_Simulation(maxMCI,simuMCI)
 ```
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
-
 <a name="Evaluate Tipping Point"></a>
  __S5: Evaluate Tipping Point__
 
@@ -269,8 +261,6 @@ RandomIc = simulation_Ic_sample(df, sampleNo=length(samplesL[['lymphoma_aggressi
 plot_Ic_Simulation(IC, RandomIc, las = 2)                                 
 ```
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
-
 <a name="Evaluate Delta Score"></a>
  __S6: Evaluate Delta Score__
 
@@ -290,7 +280,7 @@ plot_SS_Simulation(Ic,  Ic_simuG,
                    ylab='BioTIP 35 genes')
 ```
 
-[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow) 
+[Go to Top](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#example-with-bulk-rna-dataset-gse6136) 
 
 
 

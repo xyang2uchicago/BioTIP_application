@@ -28,7 +28,9 @@ We will perform downstream analysis of the existing the BloodNet dataset, the he
 
 <a name='bulkRNA'></a>
 ## Example with Bulk RNA dataset: GSE6136
-
+As indicated in the [BioTIP workflow chart](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow), the analysis can be divided into the following two sections:
+1. [Data preprocessing before running BioTIP](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#data-preprocessing-before-running-biotip)
+2. [Standard Identification in 6 steps](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#standard-identification-in-6-steps), detailed in the [BioTIP workflow chart](https://github.com/xyang2uchicago/BioTIP_application/blob/master/README.md#biotip-workflow).
 ###
 Data preprocessing before running BioTIP 
 ------

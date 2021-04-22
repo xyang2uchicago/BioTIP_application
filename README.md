@@ -16,7 +16,7 @@ We here present two cases in the following sections, one with [a single-cell RNA
 
 <a name='scRNA'></a>
 ## Example with Single-Cell RNA Dataset: BloodNet (Nestorowa 2016)
-The following chart shows how BioTIP performs in the single-cell downstream analysis and how BioTIP differs from the existing methods - instead of discovering marker genes from the differential-expression analysis between stable states, BioTIP introduces the tipping-point analysis that focuses on unstable transition states.
+The following figure shows BioTIP's analytic pipeline of single-cell RNA-seq analysis, as an alternative to differential expression analysis - instead of discovering marker genes from the differential-expression analysis between stable states, BioTIP introduces the tipping-point analysis that focuses on unstable transition states. The orange arrows show that BioTIP is applied to cell state ensembles (clusters) without the pseudo-order information. The dashed orange arrow shows that BioTIP may use pseudo-order information to focus cell states on the trajectory of interests.
 
 <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/Fig1_scRNARNAseq_pipeline_2021_xy.jpg"
      alt="BioTIP workflow"

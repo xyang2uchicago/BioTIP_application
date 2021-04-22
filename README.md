@@ -6,7 +6,7 @@ In short, BioTIP is an R-package designated for the characterization of biologic
 ## BioTIP workflow  
 The general workflow of BioTIP is detailed in the following chart: 
 
-   <img src="https://github.com/xyang2uchicago/BioTIP_application/blob/master/FigS1_BioTIP_pipeline_detailed_v7.jpg"
+   <img src="https://github.com/xyang2uchicago/BioTIP_application/FigS1_BioTIP_pipeline_detailed_v7.jpg"
      alt="BioTIP workflow"
      width="600" type="application/pdf"/>
 
